@@ -135,3 +135,116 @@ body, html, #root {
 .mic-button:active, .send-button:active {
     transform: translateY(-50%) scale(0.95);
 }
+/* 新增设置按钮样式 */
+.settings-button {
+    position: fixed;
+    bottom: 20px;
+    left: 20px; /* 定位到左下角 */
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.8);
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    z-index: 10;
+}
+
+    .settings-button:hover {
+        color: rgba(255, 255, 255, 1);
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .settings-button:active {
+        transform: scale(0.95);
+    }
+
+/* 新增设置面板（弹出层）样式 - 模拟毛玻璃效果 */
+.settings-panel {
+    position: fixed;
+    top: 50%; /* 垂直居中 */
+    left: 50%; /* 水平居中 */
+    transform: translate(-50%, -50%); /* 精确居中 */
+    width: 600px; /* 宽度可调，匹配您的表单需求 */
+    height: 450px; /* 高度可调 */
+    background-color: rgba(255, 255, 255, 0.15); /* 半透明背景 */
+    backdrop-filter: blur(20px); /* 强烈的毛玻璃效果 */
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3); /* 柔和阴影 */
+    z-index: 20; /* 确保在其他元素之上 */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.settings-content {
+    flex-grow: 1;
+    overflow-y: auto; /* 允许内容滚动 */
+}
+
+/* 弹出层关闭按钮样式 */
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    line-height: 1;
+    padding: 5px;
+    transition: color 0.2s;
+    z-index: 21;
+}
+
+    .close-button:hover {
+        color: #ff6b6b;
+    }
+
+/* 确保设置面板中的文本可读 */
+.settings-panel h2 {
+    color: white;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+.settings-panel p {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 14px;
+}
+
+/* 设置面板底部样式 */
+.settings-footer {
+    display: flex;
+    justify-content: flex-end; /* 将内容（退出按钮）推到右侧 */
+    padding-top: 20px; /* 与内容区域留出间隔 */
+    border-top: 1px solid rgba(255, 255, 255, 0.1); /* 添加柔和的分割线 */
+}
+
+/* 退出按钮样式 (红色主题) */
+.exit-button {
+    background-color: transparent; /* 保持透明背景 */
+    color: #ff6b6b; /* 鲜艳的红色 */
+    border: 1px solid #ff6b6b; /* 红色边框 */
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+
+    .exit-button:hover {
+        background-color: rgba(255, 107, 107, 0.2); /* 悬停时柔和的红色背景 */
+        color: #fff;
+        border-color: #fff; /* 悬停时边框变为白色 */
+    }
+
+    .exit-button:active {
+        transform: scale(0.98);
+    }
