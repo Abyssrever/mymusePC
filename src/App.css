@@ -176,7 +176,7 @@ body, html, #root {
     border-radius: 12px;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3); /* 柔和阴影 */
     z-index: 20; /* 确保在其他元素之上 */
-    padding: 20px;
+    padding: 45px 20px 20px 20px;
     display: flex;
     flex-direction: column;
 }
@@ -247,4 +247,619 @@ body, html, #root {
 
     .exit-button:active {
         transform: scale(0.98);
+    }
+/* --- Settings Button --- */
+.settings-button {
+    position: fixed;
+    left: 20px;
+    bottom: 30px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s ease;
+    z-index: 10;
+}
+
+    .settings-button:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .settings-button:active {
+        transform: scale(0.95);
+    }
+
+    .settings-button svg {
+        color: rgba(255, 255, 255, 0.8);
+        width: 20px;
+        height: 20px;
+    }
+
+/* --- Settings Panel Overlay and Container --- */
+.settings-panel-overlay {
+    position: fixed; /* 固定在视口中 */
+    top: 0;
+    left: 0;
+    width: 100vw; /* 覆盖整个视口宽度 */
+    height: 100vh; /* 覆盖整个视口高度 */
+    background-color: rgba(0, 0, 0, 0.5); /* 半透明的黑色蒙层 */
+    z-index: 20; /* 确保它在所有其他 UI 元素之上 */
+    display: flex;
+    justify-content: center; /* 水平居中设置面板 */
+    align-items: center; /* 垂直居中设置面板 */
+}
+
+.settings-panel {
+    width: 900px;
+    height: 700px;
+    max-width: 90vw;
+    max-height: 90vh;
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border-radius: 18px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    color: #fff;
+}
+
+/* --- Panel Header (for close button) --- */
+.settings-header {
+    padding: 10px 10px 0 10px;
+    flex-shrink: 0;
+}
+
+.close-button {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.8);
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+}
+
+    .close-button:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        color: #fff;
+    }
+
+/* --- Panel Layout --- */
+.settings-layout {
+    display: flex;
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+/* --- Sidebar --- */
+.settings-sidebar {
+    width: 200px;
+    flex-shrink: 0;
+    padding: 20px 10px;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    /* 关键修改：启用 Flex 布局并垂直排列 */
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    overflow-y: auto;
+    /* 自定义滚动条 (保持你当前的样式) */
+    scrollbar-width: none; /* Firefox */
+}
+
+.settings-sidebar-item {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.8);
+    padding: 10px 15px;
+    border-radius: 10px;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    transition: background-color 0.1s ease, color 0.1s ease;
+}
+
+.settings-sidebar-item:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.settings-sidebar-item.active {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #fff;
+}
+
+/* --- Content Area --- */
+.settings-content-wrapper {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 0 40px 20px 40px;
+}
+
+.settings-content {
+    max-width: 500px; /* 限制内容宽度以模仿截图 */
+    margin-top: 20px;
+}
+
+.setting-section h3 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 25px;
+}
+
+/* --- Form Field Styles --- */
+.setting-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+    .setting-item label {
+        font-size: 16px;
+        font-weight: 400;
+        color: rgba(255, 255, 255, 0.9);
+    }
+
+.setting-control {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+}
+
+.setting-control svg {
+    margin-left: 5px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.setting-description {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.5);
+    margin-top: 5px;
+    margin-bottom: 15px;
+    max-width: 80%;
+    line-height: 1.5;
+}
+
+.setting-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.8);
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.setting-input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background-color: rgba(0, 0, 0, 0.2);
+    color: #fff;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+.setting-input:focus {
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.setting-textarea {
+    width: 100%;
+    min-height: 80px;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background-color: rgba(0, 0, 0, 0.2);
+    color: #fff;
+    font-size: 14px;
+    outline: none;
+    resize: vertical;
+    transition: border-color 0.2s ease;
+}
+
+    .setting-textarea:focus {
+        border-color: rgba(255, 255, 255, 0.5);
+    }
+
+/* --- Action Buttons --- */
+.setting-button-action {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.setting-button-action:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.setting-button-action.primary {
+    background-color: #4CAF50; /* Green */
+    border-color: #4CAF50;
+    font-weight: 500;
+}
+
+    .setting-button-action.primary:hover {
+        background-color: #45a049;
+    }
+
+.setting-button-action.danger {
+    background-color: #f44336; /* Red */
+    border-color: #f44336;
+    font-weight: 500;
+}
+
+    .setting-button-action.danger:hover {
+        background-color: #da190b;
+    }
+
+.setting-button-action.danger-icon {
+    background: none;
+    border: none;
+    color: #f44336;
+}
+
+/* --- Toggle Switch (Copied from UI component requirements) --- */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 20px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.3); /* Off state */
+    transition: .4s;
+}
+
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 16px;
+        width: 16px;
+        left: 2px;
+        bottom: 2px;
+        background-color: white;
+        transition: .4s;
+    }
+
+input:checked + .slider {
+    background-color: #4CAF50; /* Green On state */
+}
+
+    input:checked + .slider:before {
+        transform: translateX(20px);
+    }
+
+.slider.round {
+    border-radius: 20px;
+}
+
+    .slider.round:before {
+        border-radius: 50%;
+    }
+
+/* --- Tags --- */
+.setting-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.tag-button {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.7);
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.tag-button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #fff;
+}
+/* --- Memory Manager Panel (替换此块) --- */
+.memory-manager-panel {
+    width: 900px;
+    height: 600px; /* 关键：必须有固定的高度 */
+    max-width: 90vw;
+    max-height: 90vh;
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border-radius: 18px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+    /* 核心：设置为垂直堆叠的 Flex 容器 */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    color: #fff;
+    padding: 0;
+}
+/* --- Memory Content Wrapper (替换此块) --- */
+.memory-content-wrapper {
+    /* 核心修正 A: 占据 memory-manager-panel 中除了 header 以外的所有剩余空间 */
+    flex-grow: 1;
+    /* 核心修正 B: 在内容区内部进行垂直 Flex 布局，以将 footer 推到底部 */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+/* --- Memory Manager Header  --- */
+.memory-manager-panel .settings-header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* 标题在左侧 */
+    padding: 15px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* 添加头部底线 */
+    position: sticky;
+    top: 0;
+    background-color: rgba(255, 255, 255, 0.05);
+    z-index: 10;
+}
+/* --- Memory Manager Close Button  --- */
+.memory-manager-panel .close-button {
+    /* 核心修改：将按钮推到最右侧 */
+    margin-left: auto;
+    margin-right: -5px; /* 略微向右靠边 */
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.8);
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+}
+
+.memory-manager-panel .close-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+/* --- Memory Footer --- */
+.memory-footer {
+    flex-shrink: 0;
+    padding: 15px 20px; /* 左右内边距与列表内容对齐 */
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: flex-end; /* 核心修复：按钮推到最右侧 */
+    align-items: center;
+    position: sticky;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.05);
+    z-index: 10;
+}
+/* --- Memory Item  --- */
+.memory-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 15px 0; /* 保持垂直间距 */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+/* --- Memory List (替换此块) --- */
+.memory-list {
+    /* 核心修正：让列表占据 memory-content-wrapper 内部的所有剩余空间 */
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 0 20px; /* 左右内边距 */
+}
+/* --- Delete Memory Button (替换此块) --- */
+.delete-memory-button {
+    flex-shrink: 0;
+    /* 核心修改：背景透明 */
+    background: none;
+    border: none;
+    /* 核心修改：图标颜色改为红色 (使用 danger 颜色) */
+    color: #f44336; /* Red color, matching danger style */
+
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    /* 调整图标大小和垂直对齐，以确保与文字顶部对齐 */
+    display: flex;
+    align-items: center;
+}
+
+.delete-memory-button:hover {
+    /* 悬停时显示轻微的背景 */
+    background-color: rgba(244, 67, 54, 0.1); /* 轻微的红色透明背景 */
+    color: #f44336;
+}
+
+/* 确保 SVG 继承颜色 */
+.delete-memory-button svg {
+    color: inherit;
+    width: 16px;
+    height: 16px;
+}
+
+/* --- App Grid (for 应用与连接器) --- */
+.app-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.app-card {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+    .app-card:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+
+.app-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    background-color: #2e7d32; /* Default green */
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+    .app-icon.yellow {
+        background-color: #FBC02D;
+    }
+
+    .app-icon.pink {
+        background-color: #E91E63;
+    }
+
+    .app-icon.blue {
+        background-color: #03A9F4;
+    }
+
+/* --- Upgrade List (for 账户) --- */
+.upgrade-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 15px;
+}
+
+    .upgrade-list li {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 0;
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.8);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+        .upgrade-list li:last-child {
+            border-bottom: none;
+        }
+
+/* ---Profile Placeholder --- */
+.gpt-profile-placeholder {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    margin-top: 15px;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.gpt-icon-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.gpt-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 5px;
+}
+
+.gpt-creator {
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.5);
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
+
+.preview-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.7);
+    text-align: center;
+    padding: 8px 15px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.mt-20 {
+    margin-top: 20px;
+}
+/* --- 新增：退出程序按钮样式 (Exit Program Button) --- */
+.exit-program-button {
+    /* 关键修改：将按钮推到侧边栏最底部，与导航项分离 */
+    margin-top: auto;
+    background: none;
+    border: none;
+    color: rgba(244, 67, 54, 0.8); /* 醒目的红色 */
+    padding: 10px 15px;
+    border-radius: 10px;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    transition: background-color 0.1s ease, color 0.1s ease;
+    flex-shrink: 0; /* 防止在滚动时缩小 */
+}
+
+    .exit-program-button:hover {
+        background-color: rgba(244, 67, 54, 0.1); /* 红色背景悬停效果 */
+        color: #f44336;
+    }
+
+    .exit-program-button svg {
+        color: inherit; /* 继承父元素颜色 (红色) */
     }
